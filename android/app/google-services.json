@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "190288872359",
+    "project_id": "barber-shop-cb926",
+    "storage_bucket": "barber-shop-cb926.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190288872359:android:196280b33330184300ec82",
+        "android_client_info": {
+          "package_name": "com.example.userbarber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190288872359-7mqrvpibepq0d701v07ppvr3mqgvs9hp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl9WmwZoCz-rIkawZw-5iUA-gMEKENOdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190288872359-7mqrvpibepq0d701v07ppvr3mqgvs9hp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,7 +7,7 @@ import 'package:userbarber/core/Models/ProductModel.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 import 'package:userbarber/core/Styles/TextStyles.dart';
 import 'package:userbarber/core/Utilities/cart_data.dart';
-import 'package:userbarber/Feature/Localization/Locales.dart'; // ✅ use your localization
+import 'package:userbarber/Feature/Localization/Locales.dart';
 
 class ProductContainer extends StatelessWidget {
   final String imgUrl, title, subtitle, description, status;
@@ -48,7 +48,7 @@ class ProductContainer extends StatelessWidget {
     }
 
     Fluttertoast.showToast(
-      msg: "addedToCart".getString(context), // 🔑 localized
+      msg: "addedToCart".getString(context),
       textColor: Colors.white,
       backgroundColor: AppColors.accentyellow,
       toastLength: Toast.LENGTH_SHORT,
@@ -59,6 +59,10 @@ class ProductContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // format price safely
+    final priceStr = price.toStringAsFixed(2);
+    final priceText = 'priceWithCurrency'.getString(context).replaceAll('{price}', priceStr);
 
     return GestureDetector(
       onTap: () {
@@ -87,13 +91,15 @@ class ProductContainer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
+            // use Flexible instead of Expanded to make the tile layout more predictable
+            Flexible(
+              fit: FlexFit.loose,
               child: Container(
                 width: double.infinity,
                 alignment: Alignment.center,
                 child: Image.network(
                   imgUrl,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                 ),
               ),
             ),
@@ -113,11 +119,16 @@ class ProductContainer extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
+            const SizedBox(height: 6),
             Row(
               children: [
-                Text(
-                  "priceWithCurrency".getString(context).replaceAll('{price}', price.toString()), // 🔑 localized price
-                  style: AppTextStyles.button(AppColors.accentyellow),
+                Flexible(
+                  child: Text(
+                    priceText,
+                    style: AppTextStyles.button(AppColors.accentyellow),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 const Spacer(),
                 IconButton(

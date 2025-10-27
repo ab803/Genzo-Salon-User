@@ -5,8 +5,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:userbarber/Feature/Auth/Manager/auth_cubit.dart';
 import 'package:userbarber/Feature/Auth/Manager/auth_state.dart';
+import 'package:userbarber/Feature/Auth/widgets/CustomButton.dart';
+import 'package:userbarber/Feature/Auth/widgets/CustomHashText%20.dart';
+import 'package:userbarber/Feature/Auth/widgets/CustomTextField.dart';
+import 'package:userbarber/Feature/Auth/widgets/HeaderText.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
-import 'package:userbarber/core/Styles/TextStyles.dart';
+
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -29,7 +33,8 @@ class _SignUpViewState extends State<SignUpView> {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      backgroundColor:
+      isDark ? AppColors.darkBackground : AppColors.lightBackground,
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
@@ -55,7 +60,9 @@ class _SignUpViewState extends State<SignUpView> {
         },
         builder: (context, state) {
           if (state is AuthLoading) {
-            return const Center(child: CircularProgressIndicator( color: AppColors.accentyellow,));
+            return const Center(
+              child: CircularProgressIndicator(color: AppColors.accentyellow),
+            );
           }
 
           return Padding(
@@ -64,156 +71,73 @@ class _SignUpViewState extends State<SignUpView> {
               key: _formKey,
               child: ListView(
                 children: [
-                  Text(
-                    "createAccount".getString(context),
-                    style: AppTextStyles.subheading(isDark ? AppColors.darkText : AppColors.lightText),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 24),
+                //  Header
+                CustomHeaderText(
+                isDark: isDark,
+                title: "createAccount".getString(context),
+              ),
 
-                  /// First Name
-                  TextFormField(
+                  const SizedBox(height: 24),
+                  CustomTextField(
                     controller: _firstNameController,
-                    decoration: InputDecoration(
-                      labelText: "firstName".getString(context),
-                      labelStyle: AppTextStyles.body(
-                          isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
-                      filled: true,
-                      fillColor: isDark ? AppColors.darkCard : AppColors.lightCard,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    style: AppTextStyles.body(isDark ? AppColors.darkText : AppColors.lightText),
-                    validator: (val) => val!.isEmpty ? "firstNameError".getString(context) : null,
+                    labelKey: "firstName",
+                    validatorKey: "firstNameError",
+                    isDark: isDark,
                   ),
                   const SizedBox(height: 16),
-
-                  /// Last Name
-                  TextFormField(
+                  CustomTextField(
                     controller: _lastNameController,
-                    decoration: InputDecoration(
-                      labelText: "lastName".getString(context),
-                      labelStyle: AppTextStyles.body(
-                          isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
-                      filled: true,
-                      fillColor: isDark ? AppColors.darkCard : AppColors.lightCard,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    style: AppTextStyles.body(isDark ? AppColors.darkText : AppColors.lightText),
-                    validator: (val) => val!.isEmpty ? "lastNameError".getString(context) : null,
+                    labelKey: "lastName",
+                    validatorKey: "lastNameError",
+                    isDark: isDark,
                   ),
                   const SizedBox(height: 16),
-
-                  /// Phone Number
-                  TextFormField(
+                  CustomTextField(
                     controller: _phoneController,
+                    labelKey: "phoneNumber",
                     keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      labelText: "phoneNumber".getString(context),
-                      labelStyle: AppTextStyles.body(
-                          isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
-                      filled: true,
-                      fillColor: isDark ? AppColors.darkCard : AppColors.lightCard,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    style: AppTextStyles.body(isDark ? AppColors.darkText : AppColors.lightText),
+                    isDark: isDark,
                   ),
                   const SizedBox(height: 16),
-
-                  /// Email
-                  TextFormField(
+                  CustomTextField(
                     controller: _emailController,
+                    labelKey: "email",
+                    validatorKey: "emailError",
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      labelText: "email".getString(context),
-                      labelStyle: AppTextStyles.body(
-                          isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
-                      filled: true,
-                      fillColor: isDark ? AppColors.darkCard : AppColors.lightCard,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    style: AppTextStyles.body(isDark ? AppColors.darkText : AppColors.lightText),
-                    validator: (val) => val!.isEmpty ? "emailError".getString(context) : null,
+                    isDark: isDark,
                   ),
                   const SizedBox(height: 16),
-
-                  /// Password
-                  TextFormField(
+                  CustomTextField(
                     controller: _passwordController,
+                    labelKey: "password",
+                    validatorKey: "passwordError",
                     obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "password".getString(context),
-                      labelStyle: AppTextStyles.body(
-                          isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
-                      filled: true,
-                      fillColor: isDark ? AppColors.darkCard : AppColors.lightCard,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    style: AppTextStyles.body(isDark ? AppColors.darkText : AppColors.lightText),
-                    validator: (val) => val!.length < 6 ? "passwordError".getString(context) : null,
+                    isDark: isDark,
                   ),
                   const SizedBox(height: 24),
-
-                  /// Sign Up Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.accentyellow,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          context.read<AuthCubit>().signUp(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                            firstName: _firstNameController.text,
-                            lastName: _lastNameController.text,
-                            phoneNumber: int.tryParse(_phoneController.text),
-                          );
-                        }
-                      },
-                      child: Text(
-                        "signUp".getString(context),
-                        style: AppTextStyles.button(AppColors.primaryNavy),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-
-                  /// Already have account
-                  TextButton(
+                  CustomButton(
+                    text: "signUp".getString(context),
                     onPressed: () {
-                      context.go('/signIn');
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AuthCubit>().signUp(
+                          email: _emailController.text.trim(),
+                          password: _passwordController.text.trim(),
+                          firstName: _firstNameController.text.trim(),
+                          lastName: _lastNameController.text.trim(),
+                          phoneNumber: int.tryParse(_phoneController.text),
+                        );
+                      }
                     },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "alreadyHaveAccount".getString(context),
-                          style: AppTextStyles.caption(
-                              isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          "signIn".getString(context),
-                          style: AppTextStyles.caption(AppColors.accentyellow),
-                        ),
-                      ],
-                    ),
-                  ),
+                  )
+                  ,
+                  const SizedBox(height: 12),
+              CustomHashText(
+                isDark: isDark,
+                prefixText: "alreadyHaveAccount".getString(context),
+                actionText: "signIn".getString(context),
+                route: '/signIn',
+              ),
+
                 ],
               ),
             ),

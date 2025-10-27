@@ -5,6 +5,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:userbarber/Feature/Auth/Manager/auth_cubit.dart';
 import 'package:userbarber/Feature/Auth/Manager/auth_state.dart';
+import 'package:userbarber/Feature/Auth/widgets/CustomButton.dart';
+import 'package:userbarber/Feature/Auth/widgets/CustomHashText%20.dart';
+import 'package:userbarber/Feature/Auth/widgets/CustomTextField.dart';
+import 'package:userbarber/Feature/Auth/widgets/HeaderText.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 import 'package:userbarber/core/Styles/TextStyles.dart';
 
@@ -72,129 +76,57 @@ class _SignInViewState extends State<SignInView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "welcome".getString(context),
-                          style: AppTextStyles.heading(
-                              isDark ? AppColors.darkText : AppColors.primaryNavy),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          "signInToContinue".getString(context),
-                          style: AppTextStyles.subheading(
-                              isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
-                        ),
+                        CustomHeaderText(isDark: isDark, title: "signInToContinue".getString(context)),
                         const SizedBox(height: 40),
-
                         // Email
-                        TextFormField(
+                        CustomTextField(
                           controller: _emailController,
+                          labelKey: "email",
+                          validatorKey: "email",
                           keyboardType: TextInputType.emailAddress,
-                          style: TextStyle(
-                              color: isDark ? AppColors.darkText : AppColors.lightText),
-                          decoration: InputDecoration(
-                            labelText: "email".getString(context),
-                            labelStyle: TextStyle(
-                                color: isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
-                            filled: true,
-                            fillColor: isDark ? AppColors.darkCard : AppColors.lightCard,
-                            border: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                            ),
-                            prefixIcon: Icon(Icons.email,
-                                color: isDark ? AppColors.darkSecondaryText : AppColors.primaryNavy),
-                          ),
-                          validator: (value) =>
-                          value!.isEmpty ? "email".getString(context) : null,
+                          prefixIcon: Icons.email,
+                          isDark: isDark,
                         ),
                         const SizedBox(height: 20),
 
                         // Password
-                        TextFormField(
+                        CustomTextField(
                           controller: _passwordController,
+                          labelKey: "password",
+                          validatorKey: "password",
                           obscureText: _obscurePassword,
-                          style: TextStyle(
-                              color: isDark ? AppColors.darkText : AppColors.lightText),
-                          decoration: InputDecoration(
-                            labelText: "password".getString(context),
-                            labelStyle: TextStyle(
-                                color: isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
-                            filled: true,
-                            fillColor: isDark ? AppColors.darkCard : AppColors.lightCard,
-                            border: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                            ),
-                            prefixIcon: Icon(Icons.lock,
-                                color: isDark ? AppColors.darkSecondaryText : AppColors.primaryNavy),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _obscurePassword
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: isDark
-                                    ? AppColors.darkSecondaryText
-                                    : AppColors.lightSecondaryText,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _obscurePassword = !_obscurePassword;
-                                });
-                              },
-                            ),
-                          ),
-                          validator: (value) =>
-                          value!.isEmpty ? "password".getString(context) : null,
+                          prefixIcon: Icons.lock,
+                          suffixIcon: _obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          onSuffixTap: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                          isDark: isDark,
                         ),
 
-                        const SizedBox(height: 10),
-
-
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 30),
 
                         // Sign In Button
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                              AppColors.accentyellow ,
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            onPressed: state is AuthLoading ? null : _signIn,
-                            child: state is AuthLoading
-                                ? const CircularProgressIndicator(color: Colors.white)
-                                : Text(
-                              "signIn".getString(context),
-                              style: AppTextStyles.button(Colors.white),
-                            ),
-                          ),
+                        CustomButton(
+                          text: "signIn".getString(context),
+                          isLoading: state is AuthLoading,
+                          onPressed: _signIn,
+                          textColor: AppColors.primaryNavy,
+                          backgroundColor: AppColors.accentyellow,
                         ),
 
                         const SizedBox(height: 20),
 
                         // Sign Up redirect
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "dontHaveAccount".getString(context),
-                              style: AppTextStyles.body(
-                                  isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                context.go('/signUp');
-                              },
-                              child: Text(
-                                "signUp".getString(context),
-                                style: AppTextStyles.button(AppColors.accentyellow),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                  CustomHashText(
+                    isDark: isDark,
+                    prefixText: "dontHaveAccount".getString(context),
+                    actionText: "signUp".getString(context),
+                    route: '/signUp',
+                  )],
                     ),
                   ),
                 ),

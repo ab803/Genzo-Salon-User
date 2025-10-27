@@ -6,7 +6,7 @@ import 'package:userbarber/Feature/Home/Widgets/ScaffoldWithNav.dart';
 import 'package:userbarber/Feature/Home/Widgets/header.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 import 'package:userbarber/core/Styles/TextStyles.dart';
-import 'package:userbarber/Feature/Localization/Locales.dart';
+
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

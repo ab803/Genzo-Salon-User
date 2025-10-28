@@ -11,7 +11,6 @@ import 'package:userbarber/Feature/Auth/widgets/CustomTextField.dart';
 import 'package:userbarber/Feature/Auth/widgets/HeaderText.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 
-
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
 
@@ -33,8 +32,9 @@ class _SignUpViewState extends State<SignUpView> {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor:
-      isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      backgroundColor: isDark
+          ? AppColors.darkBackground
+          : AppColors.lightBackground,
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
@@ -71,11 +71,11 @@ class _SignUpViewState extends State<SignUpView> {
               key: _formKey,
               child: ListView(
                 children: [
-                //  Header
-                CustomHeaderText(
-                isDark: isDark,
-                title: "createAccount".getString(context),
-              ),
+                  //  Header
+                  CustomHeaderText(
+                    isDark: isDark,
+                    title: "createAccount".getString(context),
+                  ),
 
                   const SizedBox(height: 24),
                   CustomTextField(
@@ -128,16 +128,14 @@ class _SignUpViewState extends State<SignUpView> {
                         );
                       }
                     },
-                  )
-                  ,
+                  ),
                   const SizedBox(height: 12),
-              CustomHashText(
-                isDark: isDark,
-                prefixText: "alreadyHaveAccount".getString(context),
-                actionText: "signIn".getString(context),
-                route: '/signIn',
-              ),
-
+                  CustomHashText(
+                    isDark: isDark,
+                    prefixText: "alreadyHaveAccount".getString(context),
+                    actionText: "signIn".getString(context),
+                    route: '/signIn',
+                  ),
                 ],
               ),
             ),

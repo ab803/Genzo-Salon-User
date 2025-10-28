@@ -34,9 +34,9 @@ class BookingModel {
           : DateTime.now(),
       time: map['time'] != null
           ? TimeOfDay(
-        hour: (map['time']['hour'] as num?)?.toInt() ?? 0,
-        minute: (map['time']['minute'] as num?)?.toInt() ?? 0,
-      )
+              hour: (map['time']['hour'] as num?)?.toInt() ?? 0,
+              minute: (map['time']['minute'] as num?)?.toInt() ?? 0,
+            )
           : const TimeOfDay(hour: 0, minute: 0),
       PaymentMethod: map['paymentMethod'] ?? '',
     );

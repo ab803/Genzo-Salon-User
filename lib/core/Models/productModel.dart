@@ -14,7 +14,7 @@ class ProductModel {
     required this.imgUrl,
     required this.productPrice,
     this.productStatus = 'available',
-    required this.productCategory
+    required this.productCategory,
   });
 
   /// Create ProductModel from Firestore document

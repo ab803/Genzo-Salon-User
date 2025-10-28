@@ -7,7 +7,6 @@ import 'package:userbarber/core/Models/bookingModel.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 import 'package:userbarber/core/Styles/TextStyles.dart';
 
-
 class BookingDetailsView extends StatelessWidget {
   final BookingModel booking;
 
@@ -18,16 +17,19 @@ class BookingDetailsView extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor:
-      isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      backgroundColor: isDark
+          ? AppColors.darkBackground
+          : AppColors.lightBackground,
       appBar: AppBar(
         title: Text(
           "bookingDetails".getString(context),
           style: AppTextStyles.heading(
-              isDark ? AppColors.accentyellow : AppColors.primaryNavy),
+            isDark ? AppColors.accentyellow : AppColors.primaryNavy,
+          ),
         ),
-        backgroundColor:
-        isDark ? AppColors.darkBackground : AppColors.lightBackground,
+        backgroundColor: isDark
+            ? AppColors.darkBackground
+            : AppColors.lightBackground,
         elevation: 0,
         iconTheme: IconThemeData(
           color: isDark ? AppColors.accentyellow : AppColors.primaryNavy,
@@ -43,7 +45,8 @@ class BookingDetailsView extends StatelessWidget {
             Text(
               "${"booking".getString(context)} : ${booking.bookingNumber}",
               style: AppTextStyles.subheading(
-                  isDark ? Colors.white : AppColors.primaryNavy),
+                isDark ? Colors.white : AppColors.primaryNavy,
+              ),
             ),
             const SizedBox(height: 12),
 
@@ -57,23 +60,30 @@ class BookingDetailsView extends StatelessWidget {
             // Date & Time
             Text(
               "${"date".getString(context)} & ${"time".getString(context)} : "
-                  "${booking.date.day}/${booking.date.month}/${booking.date.year} "
-                  "${"at".getString(context)} ${booking.time.format(context)}",
+              "${booking.date.day}/${booking.date.month}/${booking.date.year} "
+              "${"at".getString(context)} ${booking.time.format(context)}",
               style: AppTextStyles.body(
-                  isDark ? Colors.white70 : AppColors.primaryNavy),
+                isDark ? Colors.white70 : AppColors.primaryNavy,
+              ),
             ),
             const SizedBox(height: 12),
 
             // Price
             Text(
               "${"totalPrice".getString(context)} : "
-                  "${"priceWithCurrency".getString(context).replaceFirst("{price}", booking.totalPrice.toStringAsFixed(2))}",
+              "${"priceWithCurrency".getString(context).replaceFirst("{price}", booking.totalPrice.toStringAsFixed(2))}",
               style: AppTextStyles.body(
-                  isDark ? Colors.white70 : AppColors.primaryNavy),
+                isDark ? Colors.white70 : AppColors.primaryNavy,
+              ),
             ),
-            Text("paymentMethod".getString(context) + " : " + booking.PaymentMethod,
-                style: AppTextStyles.body(
-                    isDark ? Colors.white70 : AppColors.primaryNavy)),
+            Text(
+              "paymentMethod".getString(context) +
+                  " : " +
+                  booking.PaymentMethod,
+              style: AppTextStyles.body(
+                isDark ? Colors.white70 : AppColors.primaryNavy,
+              ),
+            ),
 
             const Spacer(),
 
@@ -83,16 +93,19 @@ class BookingDetailsView extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
-                  padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 onPressed: () {
-                  context
-                      .read<BookingCubit>()
-                      .deleteBooking(booking.bookingid, booking.bookingNumber);
+                  context.read<BookingCubit>().deleteBooking(
+                    booking.bookingid,
+                    booking.bookingNumber,
+                  );
                   Navigator.pop(context);
                   Fluttertoast.showToast(
                     msg: "bookingCanceled".getString(context),
@@ -105,10 +118,12 @@ class BookingDetailsView extends StatelessWidget {
                 child: Text(
                   "cancelBooking".getString(context),
                   style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

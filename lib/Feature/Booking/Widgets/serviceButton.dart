@@ -18,20 +18,19 @@ class ServiceSelectButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.accentyellow,
         padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.check_circle_outline, size: 20,color: AppColors.primaryNavy,),
-          const SizedBox(width: 8),
-          Text(
-            title,
-            style: AppTextStyles.button(AppColors.primaryNavy),
+          const Icon(
+            Icons.check_circle_outline,
+            size: 20,
+            color: AppColors.primaryNavy,
           ),
+          const SizedBox(width: 8),
+          Text(title, style: AppTextStyles.button(AppColors.primaryNavy)),
         ],
       ),
     );

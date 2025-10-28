@@ -3,7 +3,6 @@ import 'package:userbarber/Feature/Home/productRepo/productRepo.dart';
 import 'package:userbarber/core/Models/productModel.dart';
 import 'product_state.dart';
 
-
 class ProductCubit extends Cubit<ProductState> {
   final ProductRepository productRepository;
 
@@ -23,11 +22,14 @@ class ProductCubit extends Cubit<ProductState> {
   /// Listen for real-time product updates
   void listenToProducts() {
     emit(ProductLoading());
-    productRepository.getProductsStream().listen((products) {
-      emit(ProductLoaded(products));
-    }, onError: (error) {
-      emit(ProductError(error.toString()));
-    });
+    productRepository.getProductsStream().listen(
+      (products) {
+        emit(ProductLoaded(products));
+      },
+      onError: (error) {
+        emit(ProductError(error.toString()));
+      },
+    );
   }
 
   /// Add product

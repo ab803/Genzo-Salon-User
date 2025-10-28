@@ -57,9 +57,10 @@ class OrderModel {
   }
 
   factory OrderModel.fromMap(Map<String, dynamic> map) {
-    final items = (map['items'] as List<dynamic>?)
-        ?.map((e) => OrderItem.fromMap(e as Map<String, dynamic>))
-        .toList() ??
+    final items =
+        (map['items'] as List<dynamic>?)
+            ?.map((e) => OrderItem.fromMap(e as Map<String, dynamic>))
+            .toList() ??
         [];
     return OrderModel(
       orderID: map['orderID'] ?? '',

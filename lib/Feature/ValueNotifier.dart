@@ -26,27 +26,20 @@ Future<void> saveLocale(String languageCode) async {
   localeNotifier.value = Locale(languageCode);
 }
 
-
-
-
 extension ThemeColors on BuildContext {
-  Color get backgroundColor =>
-      Theme.of(this).brightness == Brightness.dark
-          ? AppColors.darkBackground
-          : AppColors.lightBackground;
+  Color get backgroundColor => Theme.of(this).brightness == Brightness.dark
+      ? AppColors.darkBackground
+      : AppColors.lightBackground;
 
-  Color get cardColor =>
-      Theme.of(this).brightness == Brightness.dark
-          ? AppColors.darkCard
-          : AppColors.lightCard;
+  Color get cardColor => Theme.of(this).brightness == Brightness.dark
+      ? AppColors.darkCard
+      : AppColors.lightCard;
 
-  Color get textColor =>
-      Theme.of(this).brightness == Brightness.dark
-          ? AppColors.darkText
-          : AppColors.lightText;
+  Color get textColor => Theme.of(this).brightness == Brightness.dark
+      ? AppColors.darkText
+      : AppColors.lightText;
 
-  Color get secondaryTextColor =>
-      Theme.of(this).brightness == Brightness.dark
-          ? AppColors.darkSecondaryText
-          : AppColors.lightSecondaryText;
+  Color get secondaryTextColor => Theme.of(this).brightness == Brightness.dark
+      ? AppColors.darkSecondaryText
+      : AppColors.lightSecondaryText;
 }

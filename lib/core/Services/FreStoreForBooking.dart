@@ -1,20 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:userbarber/core/Models/bookingModel.dart';
 
-import 'package:userbarber/core/Utilities/app_router.dart';
-
 class FirestoreForBooking {
-
   // A` reference to the Firestore collection for bookings
-  final CollectionReference bookings =
-  FirebaseFirestore.instance.collection('booking');
-
+  final CollectionReference bookings = FirebaseFirestore.instance.collection(
+    'booking',
+  );
 
   // add a new booking
   Future<void> addBooking(BookingModel booking) async {
     try {
       await bookings.add(booking.toMap());
-
     } on Exception catch (e) {
       throw Exception('Failed to add booking: $e');
     }
@@ -31,11 +27,14 @@ class FirestoreForBooking {
 
   Future<List<BookingModel>> getBookingsByUserId(String userId) async {
     try {
-      final snapshot =
-      await bookings.where('userId', isEqualTo: userId).get();
+      final snapshot = await bookings.where('userId', isEqualTo: userId).get();
       return snapshot.docs
-          .map((doc) =>
-          BookingModel.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+          .map(
+            (doc) => BookingModel.fromMap(
+              doc.data() as Map<String, dynamic>,
+              doc.id,
+            ),
+          )
           .toList();
     } on Exception catch (e) {
       throw Exception('Failed to fetch bookings: $e');
@@ -52,7 +51,10 @@ class FirestoreForBooking {
   }
 
   // update an existing booking by ID
-  Future<void> UpdateBooking(String bookingId, Map<String, dynamic> updatedData) async {
+  Future<void> UpdateBooking(
+    String bookingId,
+    Map<String, dynamic> updatedData,
+  ) async {
     try {
       await bookings.doc(bookingId).update(updatedData);
     } on Exception catch (e) {
@@ -68,5 +70,4 @@ class FirestoreForBooking {
       throw Exception('Failed to delete booking: $e');
     }
   }
-
 }

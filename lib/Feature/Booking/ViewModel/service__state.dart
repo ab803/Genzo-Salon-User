@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:userbarber/core/Models/Service.dart';
 
-
 // 🔹 Base class
 abstract class ServiceState extends Equatable {
   const ServiceState();

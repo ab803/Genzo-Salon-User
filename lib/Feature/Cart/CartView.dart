@@ -29,14 +29,16 @@ class _CartViewState extends State<CartView> {
   double get total {
     return globalCartItems.fold(
       0,
-          (sum, item) => sum + (item.product.productPrice * item.quantity),
+      (sum, item) => sum + (item.product.productPrice * item.quantity),
     );
   }
 
   Future<void> pay() async {
     try {
-      String paymentKey =
-      await PaymobManager().getPaymentKey(total.toInt(), "EGP");
+      String paymentKey = await PaymobManager().getPaymentKey(
+        total.toInt(),
+        "EGP",
+      );
       final url =
           "https://accept.paymob.com/api/acceptance/iframes/${Constants.iframeId}?payment_token=$paymentKey";
       launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
@@ -107,8 +109,9 @@ class _CartViewState extends State<CartView> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                    isDark ? AppColors.darkBackground : AppColors.primaryNavy,
+                    backgroundColor: isDark
+                        ? AppColors.darkBackground
+                        : AppColors.primaryNavy,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
@@ -178,37 +181,39 @@ class _CartViewState extends State<CartView> {
               Expanded(
                 child: globalCartItems.isEmpty
                     ? Center(
-                  child: Text(
-                    "cartEmpty".getString(context),
-                    style: AppTextStyles.subheading(
-                      isDark ? AppColors.darkText : AppColors.lightText,
-                    ),
-                  ),
-                )
+                        child: Text(
+                          "cartEmpty".getString(context),
+                          style: AppTextStyles.subheading(
+                            isDark ? AppColors.darkText : AppColors.lightText,
+                          ),
+                        ),
+                      )
                     : ListView.builder(
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).size.height * 0.15, // ✅ prevent overlap with checkout section
-                  ),
-                  itemCount: globalCartItems.length,
-                  itemBuilder: (context, index) {
-                    return CartItemContainer(
-                      item: globalCartItems[index],
-                      onQuantityChanged: (newQuantity) {
-                        setState(() {
-                          globalCartItems[index] = OrderItem(
-                            product: globalCartItems[index].product,
-                            quantity: newQuantity,
+                        padding: EdgeInsets.only(
+                          bottom:
+                              MediaQuery.of(context).size.height *
+                              0.15, // ✅ prevent overlap with checkout section
+                        ),
+                        itemCount: globalCartItems.length,
+                        itemBuilder: (context, index) {
+                          return CartItemContainer(
+                            item: globalCartItems[index],
+                            onQuantityChanged: (newQuantity) {
+                              setState(() {
+                                globalCartItems[index] = OrderItem(
+                                  product: globalCartItems[index].product,
+                                  quantity: newQuantity,
+                                );
+                              });
+                            },
+                            onRemove: () {
+                              setState(() {
+                                globalCartItems.removeAt(index);
+                              });
+                            },
                           );
-                        });
-                      },
-                      onRemove: () {
-                        setState(() {
-                          globalCartItems.removeAt(index);
-                        });
-                      },
-                    );
-                  },
-                ),
+                        },
+                      ),
               ),
               Padding(
                 padding: const EdgeInsets.all(16),
@@ -216,13 +221,17 @@ class _CartViewState extends State<CartView> {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 16),
+                        vertical: 12,
+                        horizontal: 16,
+                      ),
                       decoration: BoxDecoration(
-                        color: isDark ? AppColors.darkCard : AppColors.lightCard,
+                        color: isDark
+                            ? AppColors.darkCard
+                            : AppColors.lightCard,
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
+                            color: Colors.black,
                             blurRadius: 6,
                             offset: const Offset(0, 3),
                           ),
@@ -283,8 +292,7 @@ class _CartViewState extends State<CartView> {
                           return ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.accentyellow,
-                              padding:
-                              const EdgeInsets.symmetric(vertical: 16),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
                               ),
@@ -292,8 +300,8 @@ class _CartViewState extends State<CartView> {
                             onPressed: globalCartItems.isEmpty
                                 ? null
                                 : () {
-                              _showPaymentMethodSheet();
-                            },
+                                    _showPaymentMethodSheet();
+                                  },
                             child: Text(
                               "checkout".getString(context),
                               style: AppTextStyles.subheading(

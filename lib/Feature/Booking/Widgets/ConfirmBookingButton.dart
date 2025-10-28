@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 import 'package:userbarber/core/Styles/TextStyles.dart';
@@ -15,10 +14,15 @@ class ConfirmBookingButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.accentyellow,
           padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
         onPressed: onPressed,
-        child: Text("Confirm Booking", style: AppTextStyles.subheading(Colors.white)),
+        child: Text(
+          "Confirm Booking",
+          style: AppTextStyles.subheading(Colors.white),
+        ),
       ),
     );
   }

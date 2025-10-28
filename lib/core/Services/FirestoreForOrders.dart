@@ -9,7 +9,7 @@ class FireStoreForOrdersService {
       _firestore.collection('orders');
 
   /// Add a new order
-  Future<void> addOrder(OrderModel order) async{
+  Future<void> addOrder(OrderModel order) async {
     try {
       await ordersCollection.doc(order.orderID).set(order.toMap());
     } catch (e) {
@@ -20,8 +20,9 @@ class FireStoreForOrdersService {
   /// Get a single order by ID
   Future<OrderModel?> getOrderById(String orderId) async {
     try {
-      DocumentSnapshot<Map<String, dynamic>> doc =
-      await ordersCollection.doc(orderId).get();
+      DocumentSnapshot<Map<String, dynamic>> doc = await ordersCollection
+          .doc(orderId)
+          .get();
 
       if (doc.exists && doc.data() != null) {
         return OrderModel.fromMap(doc.data()!);
@@ -35,8 +36,9 @@ class FireStoreForOrdersService {
   /// Get all orders
   Future<List<OrderModel>> getOrdersByUserId(String userId) async {
     try {
-      final snapshot =
-      await ordersCollection.where('userId', isEqualTo: userId).get();
+      final snapshot = await ordersCollection
+          .where('userId', isEqualTo: userId)
+          .get();
 
       return snapshot.docs
           .map((doc) => OrderModel.fromMap(doc.data()))

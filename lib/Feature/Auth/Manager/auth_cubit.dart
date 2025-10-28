@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:userbarber/Feature/Auth/AuthRepo.dart';
-import 'package:userbarber/core/Models/AuthUser.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -76,8 +75,7 @@ class AuthCubit extends Cubit<AuthState> {
       );
 
       if (firebaseUser != null) {
-        final profile =
-        await _authRepository.getUserProfile(firebaseUser.uid);
+        final profile = await _authRepository.getUserProfile(firebaseUser.uid);
         if (profile != null) {
           if (saveCredentials) {
             await _saveCredentials(email, password);

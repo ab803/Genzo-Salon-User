@@ -30,19 +30,23 @@ class _BookingHistoryViewState extends State<BookingHistoryView> {
     final userId = FirebaseAuth.instance.currentUser!.uid;
 
     return Scaffold(
-      backgroundColor:
-      isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      backgroundColor: isDark
+          ? AppColors.darkBackground
+          : AppColors.lightBackground,
       appBar: AppBar(
         title: Text(
           "bookingHistory".getString(context),
           style: AppTextStyles.heading(
-              isDark ? AppColors.darkText : AppColors.primaryNavy),
+            isDark ? AppColors.darkText : AppColors.primaryNavy,
+          ),
         ),
-        backgroundColor:
-        isDark ? AppColors.darkBackground : AppColors.lightBackground,
+        backgroundColor: isDark
+            ? AppColors.darkBackground
+            : AppColors.lightBackground,
         elevation: 0,
         iconTheme: IconThemeData(
-            color: isDark ? AppColors.accentyellow : AppColors.primaryNavy),
+          color: isDark ? AppColors.accentyellow : AppColors.primaryNavy,
+        ),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -50,8 +54,10 @@ class _BookingHistoryViewState extends State<BookingHistoryView> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh,
-                color: isDark ? AppColors.accentyellow : AppColors.primaryNavy),
+            icon: Icon(
+              Icons.refresh,
+              color: isDark ? AppColors.accentyellow : AppColors.primaryNavy,
+            ),
             onPressed: () {
               context.read<BookingCubit>().loadBookings(userId);
             },
@@ -71,7 +77,8 @@ class _BookingHistoryViewState extends State<BookingHistoryView> {
                 child: Text(
                   "noBookings".getString(context),
                   style: AppTextStyles.body(
-                      isDark ? AppColors.darkSecondaryText : AppColors.lightText),
+                    isDark ? AppColors.darkSecondaryText : AppColors.lightText,
+                  ),
                 ),
               );
             }

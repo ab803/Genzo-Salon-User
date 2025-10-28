@@ -11,11 +11,14 @@ class OffersCubit extends Cubit<OffersState> {
   /// Listen for offers (real-time)
   void listenToOffers() {
     emit(OffersLoading());
-    offersRepo.getOffers().listen((offers) {
-      emit(OffersLoaded(offers));
-    }, onError: (e) {
-      emit(OffersError("Failed to load offers: $e"));
-    });
+    offersRepo.getOffers().listen(
+      (offers) {
+        emit(OffersLoaded(offers));
+      },
+      onError: (e) {
+        emit(OffersError("Failed to load offers: $e"));
+      },
+    );
   }
 
   /// Add offer

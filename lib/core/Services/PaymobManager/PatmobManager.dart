@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:userbarber/core/Services/PaymobManager/Constants.dart';
 
-
-
-
 class PaymobManager {
   final Dio _dio = Dio();
 
@@ -38,8 +35,7 @@ class PaymobManager {
   }
 
   /// Step 2: Register Order
-  Future<int> _getOrderId(
-      String authToken, int amount, String currency) async {
+  Future<int> _getOrderId(String authToken, int amount, String currency) async {
     final response = await _dio.post(
       "https://accept.paymob.com/api/ecommerce/orders",
       data: {
@@ -55,11 +51,11 @@ class PaymobManager {
 
   /// Step 3: Get Payment Key
   Future<String> _getPaymentKey(
-      String authToken,
-      String amount,
-      String currency,
-      String orderId,
-      ) async {
+    String authToken,
+    String amount,
+    String currency,
+    String orderId,
+  ) async {
     final response = await _dio.post(
       "https://accept.paymob.com/api/acceptance/payment_keys",
       data: {
@@ -83,12 +79,11 @@ class PaymobManager {
           "city": "Cairo",
           "country": "EG",
           "last_name": "Account",
-          "state": "NA"
+          "state": "NA",
         },
         // redirection URL for Flutter callback
-        "redirection_url": "myapp://payment-callback"
+        "redirection_url": "myapp://payment-callback",
       },
-
     );
     return response.data["token"];
   }

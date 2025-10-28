@@ -19,14 +19,14 @@ class OrderRepository {
   /// Get all orders
   Future<List<OrderModel>> getAllOrders() async {
     final snapshot = await ordersCollection.get();
-    return snapshot.docs
-        .map((doc) => OrderModel.fromMap(doc.data()))
-        .toList();
+    return snapshot.docs.map((doc) => OrderModel.fromMap(doc.data())).toList();
   }
+
   Future<List<OrderModel>> getOrdersByUserId(String userId) async {
     try {
-      final snapshot =
-      await ordersCollection.where('userId', isEqualTo: userId).get();
+      final snapshot = await ordersCollection
+          .where('userId', isEqualTo: userId)
+          .get();
 
       return snapshot.docs.map((doc) {
         final data = doc.data();
@@ -37,7 +37,6 @@ class OrderRepository {
       return [];
     }
   }
-
 
   /// Get single order
   Future<OrderModel?> getOrderById(String orderId) async {

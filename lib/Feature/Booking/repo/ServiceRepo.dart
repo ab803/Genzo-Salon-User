@@ -1,7 +1,6 @@
-import 'dart:developer';
+
 import 'package:userbarber/core/Models/Service.dart';
 import 'package:userbarber/core/Services/FireStoreForServices.dart';
-
 
 class ServiceRepo {
   final FireStoreForService _firestoreService;
@@ -12,5 +11,4 @@ class ServiceRepo {
   Future<List<Service>> getServices() {
     return _firestoreService.getServices();
   }
-
 }

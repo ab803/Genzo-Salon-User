@@ -34,9 +34,7 @@ class OrderHistoryCard extends StatelessWidget {
                 const Spacer(),
                 Text(
                   _statusText(order.status, context),
-                  style: AppTextStyles.subheading(
-                    _statusColor(order.status),
-                  ),
+                  style: AppTextStyles.subheading(_statusColor(order.status)),
                 ),
               ],
             ),
@@ -47,7 +45,9 @@ class OrderHistoryCard extends StatelessWidget {
             Text(
               "${'date'.getString(context)}: ${order.orderDate}",
               style: AppTextStyles.caption(
-                isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText,
+                isDark
+                    ? AppColors.darkSecondaryText
+                    : AppColors.lightSecondaryText,
               ),
             ),
             const SizedBox(height: 8),
@@ -58,12 +58,12 @@ class OrderHistoryCard extends StatelessWidget {
               children: order.items
                   .map(
                     (item) => Text(
-                  "- ${item.product.productName} x${item.quantity} (${item.product.productPrice} ${'egp'.getString(context)})",
-                  style: AppTextStyles.caption(
-                    isDark ? AppColors.darkText : AppColors.lightText,
-                  ),
-                ),
-              )
+                      "- ${item.product.productName} x${item.quantity} (${item.product.productPrice} ${'egp'.getString(context)})",
+                      style: AppTextStyles.caption(
+                        isDark ? AppColors.darkText : AppColors.lightText,
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
 

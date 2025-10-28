@@ -7,7 +7,6 @@ import 'package:userbarber/core/Models/ProductModel.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 import 'package:userbarber/core/Styles/TextStyles.dart';
 import 'package:userbarber/core/Utilities/cart_data.dart';
-import 'package:userbarber/Feature/Localization/Locales.dart';
 
 class ProductContainer extends StatelessWidget {
   final String imgUrl, title, subtitle, description, status;
@@ -25,7 +24,7 @@ class ProductContainer extends StatelessWidget {
 
   void addToCart(BuildContext context) {
     final index = globalCartItems.indexWhere(
-          (item) => item.product.productName == title,
+      (item) => item.product.productName == title,
     );
 
     if (index != -1) {
@@ -62,7 +61,9 @@ class ProductContainer extends StatelessWidget {
 
     // format price safely
     final priceStr = price.toStringAsFixed(2);
-    final priceText = 'priceWithCurrency'.getString(context).replaceAll('{price}', priceStr);
+    final priceText = 'priceWithCurrency'
+        .getString(context)
+        .replaceAll('{price}', priceStr);
 
     return GestureDetector(
       onTap: () {
@@ -97,17 +98,15 @@ class ProductContainer extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 alignment: Alignment.center,
-                child: Image.network(
-                  imgUrl,
-                  fit: BoxFit.contain,
-                ),
+                child: Image.network(imgUrl, fit: BoxFit.contain),
               ),
             ),
             const SizedBox(height: 8),
             Text(
               title,
               style: AppTextStyles.subheading(
-                  isDark ? Colors.white : AppColors.lightText),
+                isDark ? Colors.white : AppColors.lightText,
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -115,7 +114,10 @@ class ProductContainer extends StatelessWidget {
             Text(
               subtitle,
               style: AppTextStyles.caption(
-                  isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
+                isDark
+                    ? AppColors.darkSecondaryText
+                    : AppColors.lightSecondaryText,
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

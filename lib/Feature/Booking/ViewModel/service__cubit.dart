@@ -11,7 +11,8 @@ class ServiceCubit extends Cubit<ServiceState> {
   Future<void> loadServices() async {
     emit(ServiceLoading());
     try {
-      final services = await _serviceRepo.getServices(); // returns List<ServiceModel>
+      final services = await _serviceRepo
+          .getServices(); // returns List<ServiceModel>
       emit(ServiceLoaded(services)); // ✅ now matches state
     } catch (e) {
       emit(ServiceError("Failed to load services: $e"));

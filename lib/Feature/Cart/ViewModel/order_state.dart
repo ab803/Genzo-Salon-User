@@ -1,7 +1,5 @@
 import 'package:userbarber/core/Models/OrderModel.dart';
 
-
-
 abstract class OrderState {}
 
 class OrderInitial extends OrderState {}
@@ -22,4 +20,5 @@ class OrderSuccess extends OrderState {
   final String message;
   OrderSuccess(this.message);
 }
+
 class OrderStatusUpdated extends OrderState {}

@@ -1,8 +1,6 @@
 import 'package:userbarber/core/Models/productModel.dart';
 import 'package:userbarber/core/Services/Firestore.dart';
 
-
-
 class ProductRepository {
   final FirestoreService _productService;
 

@@ -28,7 +28,7 @@ class CartItemContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black,
             blurRadius: 6,
             offset: const Offset(0, 3),
           ),
@@ -64,7 +64,9 @@ class CartItemContainer extends StatelessWidget {
                 Text(
                   "${'price'.getString(context)}: ${item.product.productPrice} ${'egp'.getString(context)}",
                   style: AppTextStyles.caption(
-                    isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText,
+                    isDark
+                        ? AppColors.darkSecondaryText
+                        : AppColors.lightSecondaryText,
                   ),
                 ),
               ],

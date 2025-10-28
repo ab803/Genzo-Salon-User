@@ -3,7 +3,6 @@ import 'package:userbarber/core/Models/offerModel.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 import 'package:userbarber/core/Styles/TextStyles.dart';
 import 'package:flutter_localization/flutter_localization.dart';
-import 'package:userbarber/Feature/Localization/Locales.dart';
 
 class UserOfferCard extends StatelessWidget {
   final OfferModel offer;
@@ -59,10 +58,12 @@ class UserOfferCard extends StatelessWidget {
                 children: [
                   Text(
                     // 🔑 localized price string
-                    "currencyEGP".getString(context).replaceFirst(
-                      "{price}",
-                      offer.price.toStringAsFixed(2),
-                    ),
+                    "currencyEGP"
+                        .getString(context)
+                        .replaceFirst(
+                          "{price}",
+                          offer.price.toStringAsFixed(2),
+                        ),
                     style: AppTextStyles.subheading(AppColors.accentyellow),
                   ),
                   if (onTap != null)
@@ -82,9 +83,7 @@ class UserOfferCard extends StatelessWidget {
                       child: Text(
                         "bookNow".getString(context), // 🔑 localized
                         style: AppTextStyles.button(
-                          isDark
-                              ? AppColors.darkText
-                              : AppColors.lightText,
+                          isDark ? AppColors.darkText : AppColors.lightText,
                         ),
                       ),
                     ),

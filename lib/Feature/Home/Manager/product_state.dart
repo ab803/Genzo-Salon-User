@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:userbarber/core/Models/productModel.dart';
 
-
 abstract class ProductState extends Equatable {
   const ProductState();
 

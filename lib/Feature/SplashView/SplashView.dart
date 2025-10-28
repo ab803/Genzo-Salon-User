@@ -28,13 +28,15 @@ class _SplashViewState extends State<SplashView>
       duration: const Duration(seconds: 2),
     );
 
-    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 0.8,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
 
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
-    );
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
 
     _controller.forward();
 
@@ -63,8 +65,9 @@ class _SplashViewState extends State<SplashView>
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor:
-      isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      backgroundColor: isDark
+          ? AppColors.darkBackground
+          : AppColors.lightBackground,
       body: Center(
         child: FadeTransition(
           opacity: _fadeAnimation,
@@ -73,15 +76,9 @@ class _SplashViewState extends State<SplashView>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  assets.logo,
-                  width: 200,
-                  height: 250,
-                ),
+                Image.asset(assets.logo, width: 200, height: 250),
                 const SizedBox(height: 30),
-                CircularProgressIndicator(
-                  color: AppColors.accentyellow,
-                ),
+                CircularProgressIndicator(color: AppColors.accentyellow),
               ],
             ),
           ),

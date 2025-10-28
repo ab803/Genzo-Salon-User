@@ -16,7 +16,7 @@ class BookingCubit extends Cubit<BookingState> {
     await _bookingSubscription?.cancel(); // cancel old listener if exists
 
     _bookingSubscription = bookingRepo.getBookings().listen(
-          (bookings) {
+      (bookings) {
         emit(BookingLoaded(bookings));
       },
       onError: (e) {
@@ -64,11 +64,13 @@ class BookingCubit extends Cubit<BookingState> {
   }
 
   /// ✅ Update booking + reschedule reminder
-  Future<void> updateBooking(String bookingId, BookingModel updatedBooking) async {
+  Future<void> updateBooking(
+    String bookingId,
+    BookingModel updatedBooking,
+  ) async {
     emit(BookingLoading());
     try {
       await bookingRepo.updateBooking(bookingId, updatedBooking);
-
 
       emit(const BookingActionSuccess("Booking updated successfully"));
     } catch (e) {
@@ -81,7 +83,6 @@ class BookingCubit extends Cubit<BookingState> {
     emit(BookingLoading());
     try {
       await bookingRepo.deleteBooking(bookingId);
-
 
       emit(const BookingActionSuccess("Booking deleted successfully"));
     } catch (e) {

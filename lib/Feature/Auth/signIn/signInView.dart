@@ -10,7 +10,7 @@ import 'package:userbarber/Feature/Auth/widgets/CustomHashText%20.dart';
 import 'package:userbarber/Feature/Auth/widgets/CustomTextField.dart';
 import 'package:userbarber/Feature/Auth/widgets/HeaderText.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
-import 'package:userbarber/core/Styles/TextStyles.dart';
+
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -41,7 +41,9 @@ class _SignInViewState extends State<SignInView> {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      backgroundColor: isDark
+          ? AppColors.darkBackground
+          : AppColors.lightBackground,
       body: SafeArea(
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
@@ -76,7 +78,10 @@ class _SignInViewState extends State<SignInView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomHeaderText(isDark: isDark, title: "signInToContinue".getString(context)),
+                        CustomHeaderText(
+                          isDark: isDark,
+                          title: "signInToContinue".getString(context),
+                        ),
                         const SizedBox(height: 40),
                         // Email
                         CustomTextField(
@@ -121,12 +126,13 @@ class _SignInViewState extends State<SignInView> {
                         const SizedBox(height: 20),
 
                         // Sign Up redirect
-                  CustomHashText(
-                    isDark: isDark,
-                    prefixText: "dontHaveAccount".getString(context),
-                    actionText: "signUp".getString(context),
-                    route: '/signUp',
-                  )],
+                        CustomHashText(
+                          isDark: isDark,
+                          prefixText: "dontHaveAccount".getString(context),
+                          actionText: "signUp".getString(context),
+                          route: '/signUp',
+                        ),
+                      ],
                     ),
                   ),
                 ),

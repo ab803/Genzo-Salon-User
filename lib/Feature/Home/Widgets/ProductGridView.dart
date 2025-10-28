@@ -9,10 +9,7 @@ import 'package:userbarber/core/Styles/Styles.dart';
 class ProductGridView extends StatelessWidget {
   final String selectedCategory;
 
-  const ProductGridView({
-    super.key,
-    required this.selectedCategory,
-  });
+  const ProductGridView({super.key, required this.selectedCategory});
 
   static const Map<String, String> categoryMap = {
     "categoryAll": "All",
@@ -37,8 +34,11 @@ class ProductGridView extends StatelessWidget {
           var products = state.products;
 
           if (selectedCategory != "categoryAll") {
-            final categoryValue = categoryMap[selectedCategory] ?? selectedCategory;
-            products = products.where((p) => p.productCategory == categoryValue).toList();
+            final categoryValue =
+                categoryMap[selectedCategory] ?? selectedCategory;
+            products = products
+                .where((p) => p.productCategory == categoryValue)
+                .toList();
           }
 
           if (products.isEmpty) {
@@ -46,7 +46,9 @@ class ProductGridView extends StatelessWidget {
               child: Text(
                 'noProducts'.getString(context),
                 style: TextStyle(
-                  color: isDark ? AppColors.darkSecondaryText : AppColors.primaryNavy,
+                  color: isDark
+                      ? AppColors.darkSecondaryText
+                      : AppColors.primaryNavy,
                   fontSize: 16,
                 ),
               ),

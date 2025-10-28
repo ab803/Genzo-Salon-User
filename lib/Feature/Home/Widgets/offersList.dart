@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -12,7 +12,7 @@ import 'package:userbarber/core/Styles/Styles.dart';
 import 'package:userbarber/core/Utilities/getit.dart';
 import 'package:userbarber/core/Utilities/serviceList.dart';
 import 'package:userbarber/core/Models/Service.dart';
-import 'package:userbarber/Feature/Localization/Locales.dart'; // ✅ your localization
+
 
 class OfferListView extends StatelessWidget {
   const OfferListView({super.key});

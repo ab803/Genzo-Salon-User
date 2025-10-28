@@ -68,8 +68,9 @@ class _HomeViewState extends State<HomeView> {
                 padding: EdgeInsets.only(left: screenWidth * 0.04),
                 child: Text(
                   'products'.getString(context),
-                  style: AppTextStyles.subheading(textColor ?? AppColors.primaryNavy)
-                      .copyWith(fontSize: screenWidth * 0.05),
+                  style: AppTextStyles.subheading(
+                    textColor ?? AppColors.primaryNavy,
+                  ).copyWith(fontSize: screenWidth * 0.05),
                 ),
               ),
 
@@ -85,7 +86,9 @@ class _HomeViewState extends State<HomeView> {
                     itemBuilder: (context, index) {
                       final categoryKey = categoryKeys[index];
                       return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.015),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.015,
+                        ),
                         child: ProductListItem(
                           categoryKey: categoryKey,
                           isSelected: index == selectedIndex,

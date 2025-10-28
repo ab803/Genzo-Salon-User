@@ -64,7 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '190288872359',
     projectId: 'barber-shop-cb926',
     storageBucket: 'barber-shop-cb926.firebasestorage.app',
-    iosClientId: '190288872359-q4ib6onmsccm2l7psob0eim7tpdsvijs.apps.googleusercontent.com',
+    iosClientId:
+        '190288872359-q4ib6onmsccm2l7psob0eim7tpdsvijs.apps.googleusercontent.com',
     iosBundleId: 'com.example.userbarber',
   );
 
@@ -74,7 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '190288872359',
     projectId: 'barber-shop-cb926',
     storageBucket: 'barber-shop-cb926.firebasestorage.app',
-    iosClientId: '190288872359-q4ib6onmsccm2l7psob0eim7tpdsvijs.apps.googleusercontent.com',
+    iosClientId:
+        '190288872359-q4ib6onmsccm2l7psob0eim7tpdsvijs.apps.googleusercontent.com',
     iosBundleId: 'com.example.userbarber',
   );
 

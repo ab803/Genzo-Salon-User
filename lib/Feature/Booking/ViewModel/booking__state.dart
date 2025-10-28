@@ -47,6 +47,3 @@ class BookingActionSuccess extends BookingState {
   @override
   List<Object?> get props => [message];
 }
-
-
-

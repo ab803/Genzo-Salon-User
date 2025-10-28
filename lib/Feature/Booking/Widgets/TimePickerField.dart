@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 import 'package:userbarber/core/Styles/TextStyles.dart';
@@ -7,7 +6,11 @@ class TimePickerField extends StatelessWidget {
   final TimeOfDay? selectedTime;
   final VoidCallback onTap;
 
-  const TimePickerField({super.key, required this.selectedTime, required this.onTap});
+  const TimePickerField({
+    super.key,
+    required this.selectedTime,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {

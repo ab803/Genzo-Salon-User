@@ -1,5 +1,3 @@
-
-
 abstract class Failure {
   final String errMessage;
 

@@ -4,7 +4,6 @@ import 'package:userbarber/Feature/Home/Widgets/offersList.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 import 'package:userbarber/core/Styles/TextStyles.dart';
 import 'package:flutter_localization/flutter_localization.dart';
-import 'package:userbarber/Feature/Localization/Locales.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key});
@@ -39,8 +38,10 @@ class Header extends StatelessWidget {
                 style: AppTextStyles.subheading(AppColors.primaryNavy),
               ),
               trailing: IconButton(
-                icon: Icon(Icons.display_settings_rounded,
-                    color: AppColors.primaryNavy),
+                icon: Icon(
+                  Icons.display_settings_rounded,
+                  color: AppColors.primaryNavy,
+                ),
                 onPressed: () {
                   Scaffold.of(context).openEndDrawer();
                 },
@@ -71,10 +72,7 @@ class Header extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            height: 190,
-            child: const OfferListView(),
-          ),
+          SizedBox(height: 190, child: const OfferListView()),
         ],
       ),
     );

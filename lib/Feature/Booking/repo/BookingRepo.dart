@@ -36,7 +36,10 @@ class BookingRepo {
   }
 
   // update booking
-  Future<void> updateBooking(String bookingId, BookingModel updatedBooking) async {
+  Future<void> updateBooking(
+    String bookingId,
+    BookingModel updatedBooking,
+  ) async {
     await _firestoreService.UpdateBooking(bookingId, updatedBooking.toMap());
   }
 
@@ -44,5 +47,4 @@ class BookingRepo {
   Future<void> deleteBooking(String bookingId) async {
     await _firestoreService.deleteBooking(bookingId);
   }
-
 }

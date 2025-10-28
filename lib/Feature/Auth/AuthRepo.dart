@@ -6,7 +6,7 @@ class AuthRepository {
   final AuthService _authService;
 
   AuthRepository({AuthService? authService})
-      : _authService = authService ?? AuthService();
+    : _authService = authService ?? AuthService();
 
   /// Sign up and return AuthUser
   Future<AuthUser?> signUp({
@@ -30,10 +30,7 @@ class AuthRepository {
     required String email,
     required String password,
   }) async {
-    return await _authService.signIn(
-      email: email,
-      password: password,
-    );
+    return await _authService.signIn(email: email, password: password);
   }
 
   /// Get Firestore user profile
@@ -54,6 +51,7 @@ class AuthRepository {
       }
     }
   }
+
   /// Sign out
   Future<void> signOut() async {
     await _authService.signOut();
@@ -63,7 +61,6 @@ class AuthRepository {
   Future<void> updatePassword(String newPassword) async {
     await _authService.updatePassword(newPassword);
   }
-
 
   /// Current Firebase user
   User? get currentUser => _authService.currentUser;

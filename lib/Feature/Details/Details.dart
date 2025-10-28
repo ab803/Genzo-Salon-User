@@ -26,16 +26,18 @@ class ProductDetailsView extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor:
-      isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      backgroundColor: isDark
+          ? AppColors.darkBackground
+          : AppColors.lightBackground,
       appBar: AppBar(
         title: Text(
           title,
           style: AppTextStyles.subheading(AppColors.accentyellow),
         ),
         centerTitle: true,
-        backgroundColor:
-        isDark ? AppColors.darkBackground : AppColors.lightBackground,
+        backgroundColor: isDark
+            ? AppColors.darkBackground
+            : AppColors.lightBackground,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -50,11 +52,7 @@ class ProductDetailsView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Image.network(
-                imgUrl,
-                height: 220,
-                fit: BoxFit.contain,
-              ),
+              child: Image.network(imgUrl, height: 220, fit: BoxFit.contain),
             ),
             const SizedBox(height: 20),
             Row(
@@ -62,14 +60,17 @@ class ProductDetailsView extends StatelessWidget {
                 Text(
                   title,
                   style: AppTextStyles.subheading(
-                      isDark ? AppColors.darkText : AppColors.lightText),
+                    isDark ? AppColors.darkText : AppColors.lightText,
+                  ),
                 ),
                 const Spacer(),
                 Text(
                   subtitle,
-                  style: AppTextStyles.caption(isDark
-                      ? AppColors.darkSecondaryText
-                      : AppColors.lightSecondaryText),
+                  style: AppTextStyles.caption(
+                    isDark
+                        ? AppColors.darkSecondaryText
+                        : AppColors.lightSecondaryText,
+                  ),
                 ),
               ],
             ),
@@ -77,13 +78,17 @@ class ProductDetailsView extends StatelessWidget {
             Text(
               "${'description'.getString(context)}:",
               style: AppTextStyles.subheading(
-                  isDark ? AppColors.darkText : AppColors.lightText),
+                isDark ? AppColors.darkText : AppColors.lightText,
+              ),
             ),
             const SizedBox(height: 10),
             Text(
               description,
               style: AppTextStyles.caption(
-                  isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
+                isDark
+                    ? AppColors.darkSecondaryText
+                    : AppColors.lightSecondaryText,
+              ),
             ),
             const Spacer(),
             Row(
@@ -91,13 +96,17 @@ class ProductDetailsView extends StatelessWidget {
                 Text(
                   "${'price'.getString(context)}: ${price.toStringAsFixed(2)} ${'egp'.getString(context)}",
                   style: AppTextStyles.button(
-                      isDark ? AppColors.darkText : AppColors.lightText),
+                    isDark ? AppColors.darkText : AppColors.lightText,
+                  ),
                 ),
                 const Spacer(),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.accentyellow,
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                      vertical: 12,
+                    ),
                   ),
                   onPressed: () {
                     product().addItemfromProduct(title, price, imgUrl);
@@ -113,7 +122,8 @@ class ProductDetailsView extends StatelessWidget {
                   child: Text(
                     'addToCart'.getString(context),
                     style: AppTextStyles.button(
-                        isDark ? AppColors.darkText : AppColors.lightText),
+                      isDark ? AppColors.darkText : AppColors.lightText,
+                    ),
                   ),
                 ),
               ],

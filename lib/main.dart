@@ -1,7 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -24,15 +23,13 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   setupServiceLocator();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await loadTheme();
 
   // ✅ Required for flutter_localization
   await FlutterLocalization.instance.ensureInitialized();
 
-  runApp(const MyApp(),);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -60,18 +57,18 @@ class _MyAppState extends State<MyApp> {
           providers: [
             BlocProvider<OrderCubit>(
               create: (context) =>
-              OrderCubit(getIt<OrderRepository>())..loadOrders(FirebaseAuth.instance.currentUser!.uid),
+                  OrderCubit(getIt<OrderRepository>())
+                    ..loadOrders(FirebaseAuth.instance.currentUser!.uid),
             ),
             BlocProvider<BookingCubit>(
               create: (_) => BookingCubit(bookingRepo: BookingRepo()),
             ),
             BlocProvider<ServiceCubit>(
-              create: (_) =>
-              ServiceCubit(getIt<ServiceRepo>())..loadServices(),
+              create: (_) => ServiceCubit(getIt<ServiceRepo>())..loadServices(),
             ),
             BlocProvider(
               create: (_) => AuthCubit(AuthRepository())..autoSignIn(),
-            )
+            ),
           ],
           child: MaterialApp.router(
             locale: localization.currentLocale ?? DevicePreview.locale(context),
@@ -83,7 +80,6 @@ class _MyAppState extends State<MyApp> {
             supportedLocales: localization.supportedLocales,
             localizationsDelegates: localization.localizationsDelegates,
 
-
             // ✅ Theme setup
             theme: ThemeData(
               brightness: Brightness.light,
@@ -92,10 +88,6 @@ class _MyAppState extends State<MyApp> {
               primaryColor: AppColors.primaryNavy,
               textTheme: const TextTheme(
                 bodyMedium: TextStyle(color: AppColors.lightText),
-              ),
-              switchTheme: SwitchThemeData(
-                thumbColor:
-                MaterialStatePropertyAll(AppColors.accentyellow),
               ),
             ),
             darkTheme: ThemeData(
@@ -116,10 +108,7 @@ class _MyAppState extends State<MyApp> {
 
   /// Initialize localization
   void configureLocalization() {
-    localization.init(
-      mapLocales: locales,
-      initLanguageCode: 'en',
-    );
+    localization.init(mapLocales: locales, initLanguageCode: 'en');
     localization.onTranslatedLanguage = (locale) => setState(() {});
   }
 }

@@ -48,18 +48,15 @@ class CustomTextField extends StatelessWidget {
             : null,
         suffixIcon: suffixIcon != null
             ? GestureDetector(
-          onTap: onSuffixTap,
-          child: Icon(
-            suffixIcon,
-            color: AppColors.accentyellow,
-          ),
-        )
+                onTap: onSuffixTap,
+                child: Icon(suffixIcon, color: AppColors.accentyellow),
+              )
             : null,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      style: AppTextStyles.body(isDark ? AppColors.darkText : AppColors.lightText),
+      style: AppTextStyles.body(
+        isDark ? AppColors.darkText : AppColors.lightText,
+      ),
       validator: validatorKey == null
           ? null
           : (val) => val!.isEmpty ? validatorKey!.getString(context) : null,

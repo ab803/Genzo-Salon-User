@@ -17,7 +17,9 @@ class OrderHistoryScreen extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      backgroundColor: isDark
+          ? AppColors.darkBackground
+          : AppColors.lightBackground,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -26,7 +28,9 @@ class OrderHistoryScreen extends StatelessWidget {
             isDark ? AppColors.accentyellow : AppColors.primaryNavy,
           ),
         ),
-        backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
+        backgroundColor: isDark
+            ? AppColors.darkBackground
+            : AppColors.lightBackground,
         leading: IconButton(
           onPressed: () {
             context.go("/cart");
@@ -46,7 +50,7 @@ class OrderHistoryScreen extends StatelessWidget {
               final userId = FirebaseAuth.instance.currentUser!.uid;
               context.read<OrderCubit>().loadOrders(userId);
             },
-          )
+          ),
         ],
         elevation: 0,
       ),
@@ -62,7 +66,9 @@ class OrderHistoryScreen extends StatelessWidget {
                 child: Text(
                   'noOrdersFound'.getString(context),
                   style: AppTextStyles.subheading(
-                    isDark ? AppColors.darkSecondaryText : AppColors.primaryNavy,
+                    isDark
+                        ? AppColors.darkSecondaryText
+                        : AppColors.primaryNavy,
                   ),
                 ),
               );

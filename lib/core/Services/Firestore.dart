@@ -15,21 +15,24 @@ class FirestoreService {
 
   /// Get all products
   Future<List<ProductModel>> getProducts() async {
-    QuerySnapshot snapshot =
+    QuerySnapshot<Map<String, dynamic>> snapshot =
     await _firestore.collection(_collectionName).get();
 
     return snapshot.docs
-        .map((doc) => ProductModel.fromMap(doc.data() as Map<String, dynamic>))
+        .map((doc) => ProductModel.fromMap(doc.data()))
         .toList();
   }
 
   /// Get a single product by ID
   Future<ProductModel?> getProductById(String id) async {
-    DocumentSnapshot doc =
+    DocumentSnapshot<Map<String, dynamic>> doc =
     await _firestore.collection(_collectionName).doc(id).get();
 
     if (doc.exists) {
-      return ProductModel.fromMap(doc.data() as Map<String, dynamic>);
+      final data = doc.data();
+      if (data != null) {
+        return ProductModel.fromMap(data);
+      }
     }
     return null;
   }
@@ -46,13 +49,16 @@ class FirestoreService {
   Future<void> deleteProduct(String id) async {
     await _firestore.collection(_collectionName).doc(id).delete();
   }
+
   /// Real-time products stream
   Stream<List<ProductModel>> getProductsStream() {
     return _firestore
         .collection(_collectionName)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-        .map((doc) => ProductModel.fromMap(doc.data() as Map<String, dynamic>))
-        .toList());
+        .map(
+          (QuerySnapshot<Map<String, dynamic>> snapshot) => snapshot.docs
+          .map((doc) => ProductModel.fromMap(doc.data()))
+          .toList(),
+    );
   }
 }

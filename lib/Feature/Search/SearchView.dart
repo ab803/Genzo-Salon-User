@@ -14,8 +14,8 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
-  List allList = [];
-  List resultList = [];
+  List<Map<String, dynamic>> allList = [];
+  List<Map<String, dynamic>> resultList = [];
   final TextEditingController searchController = TextEditingController();
   bool isLoading = false;
   String? errorMessage;
@@ -33,8 +33,9 @@ class _SearchViewState extends State<SearchView> {
           .get();
 
       setState(() {
-        allList = data.docs.map((e) => e.data() as Map<String, dynamic>).toList();
-        resultList = List.from(allList); // ✅ Show all products initially
+        // Removed unnecessary cast: e.data() already returns Map<String, dynamic> for QueryDocumentSnapshot<Map<String, dynamic>>
+        allList = data.docs.map((e) => e.data()).toList();
+        resultList = List.from(allList); // Show all products initially
       });
     } catch (e) {
       setState(() {
@@ -52,11 +53,12 @@ class _SearchViewState extends State<SearchView> {
   }
 
   void searchResultList() {
-    var showResults = [];
-    if (searchController.text.isNotEmpty) {
+    final query = searchController.text.trim().toLowerCase();
+    List<Map<String, dynamic>> showResults = [];
+    if (query.isNotEmpty) {
       for (var productSnapshot in allList) {
-        var title = productSnapshot['productName'].toString().toLowerCase();
-        if (title.contains(searchController.text.toLowerCase())) {
+        final title = (productSnapshot['productName'] ?? '').toString().toLowerCase();
+        if (title.contains(query)) {
           showResults.add(productSnapshot);
         }
       }
@@ -88,11 +90,9 @@ class _SearchViewState extends State<SearchView> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor:
-      isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
       appBar: AppBar(
-        backgroundColor:
-        isDark ? AppColors.darkBackground : AppColors.lightBackground,
+        backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
         elevation: 0,
         leading: IconButton(
           onPressed: () => context.go('/home'),
@@ -105,9 +105,11 @@ class _SearchViewState extends State<SearchView> {
           controller: searchController,
           placeholder: 'searchHint'.getString(context),
           placeholderStyle: AppTextStyles.caption(
-              isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText),
+            isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText,
+          ),
           style: AppTextStyles.body(
-              isDark ? AppColors.darkText : AppColors.lightText),
+            isDark ? AppColors.darkText : AppColors.lightText,
+          ),
           backgroundColor: isDark ? AppColors.darkCard : AppColors.lightCard,
           prefixIcon: const Icon(Icons.search),
           borderRadius: BorderRadius.circular(12),
@@ -120,9 +122,7 @@ class _SearchViewState extends State<SearchView> {
         child: Text(
           errorMessage!,
           style: AppTextStyles.subheading(
-            isDark
-                ? AppColors.darkSecondaryText
-                : AppColors.lightSecondaryText,
+            isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText,
           ),
         ),
       )
@@ -131,9 +131,7 @@ class _SearchViewState extends State<SearchView> {
         child: Text(
           'noResults'.getString(context),
           style: AppTextStyles.subheading(
-            isDark
-                ? AppColors.darkSecondaryText
-                : AppColors.lightSecondaryText,
+            isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText,
           ),
         ),
       )
@@ -142,17 +140,20 @@ class _SearchViewState extends State<SearchView> {
         itemBuilder: (context, index) {
           final product = resultList[index];
 
-          // ✅ Safe null handling
-          final name = product['productName'] ?? "Unnamed product";
-          final description =
-              product['ProductCategory'] ?? "No description";
-          final id = product['id'] ?? "";
+          // Safe null handling and type conversions
+          final name = product['productName']?.toString() ?? "Unnamed product";
+          final description = product['ProductCategory']?.toString() ?? "No description";
+          final id = product['id']?.toString() ?? "";
           final priceValue = product['productPrice'];
 
-          // Make sure price is a number
-          final price = (priceValue is num)
-              ? priceValue.toStringAsFixed(2)
-              : "0.00";
+          double? priceNum;
+          if (priceValue is num) {
+            priceNum = priceValue.toDouble();
+          } else if (priceValue is String) {
+            priceNum = double.tryParse(priceValue);
+          }
+
+          final price = priceNum != null ? priceNum.toStringAsFixed(2) : "0.00";
 
           return ListTile(
             title: Text(
@@ -164,15 +165,11 @@ class _SearchViewState extends State<SearchView> {
             subtitle: Text(
               description,
               style: AppTextStyles.body(
-                isDark
-                    ? AppColors.darkSecondaryText
-                    : AppColors.lightSecondaryText,
+                isDark ? AppColors.darkSecondaryText : AppColors.lightSecondaryText,
               ),
             ),
             trailing: Text(
-              "currencyEGP"
-                  .getString(context)
-                  .replaceFirst("{price}", price),
+              "currencyEGP".getString(context).replaceFirst("{price}", price),
               style: AppTextStyles.subheading(AppColors.accentyellow),
             ),
             onTap: () {

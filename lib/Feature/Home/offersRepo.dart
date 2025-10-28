@@ -22,7 +22,10 @@ class OffersRepo {
   /// Get a single offer by ID
   Future<OfferModel?> getOfferById(String offerId) async {
     try {
-      final doc = await _firestore.collection(collectionName).doc(offerId).get();
+      final doc = await _firestore
+          .collection(collectionName)
+          .doc(offerId)
+          .get();
       if (doc.exists) {
         return OfferModel.fromFirestore(doc.data()!, doc.id);
       }

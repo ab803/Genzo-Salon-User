@@ -17,7 +17,8 @@ class ServiceSelectionButtons extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         ServiceSelectButton(
-          title: "Selected: ${globalServiceCartItems.length} | Total: ${totalPrice.toStringAsFixed(2)} EGP",
+          title:
+              "Selected: ${globalServiceCartItems.length} | Total: ${totalPrice.toStringAsFixed(2)} EGP",
           onPressed: () => context.go("/selected"),
         ),
       ],

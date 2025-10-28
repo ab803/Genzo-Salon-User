@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:userbarber/Feature/Localization/Locales.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 import 'package:userbarber/core/Styles/TextStyles.dart';
 import 'package:flutter_localization/flutter_localization.dart';

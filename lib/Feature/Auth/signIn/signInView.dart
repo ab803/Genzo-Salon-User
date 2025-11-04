@@ -11,7 +11,6 @@ import 'package:userbarber/Feature/Auth/widgets/CustomTextField.dart';
 import 'package:userbarber/Feature/Auth/widgets/HeaderText.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 
-
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
 

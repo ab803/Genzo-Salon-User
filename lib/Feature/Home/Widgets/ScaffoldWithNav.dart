@@ -6,7 +6,6 @@ import 'package:userbarber/Feature/Home/Widgets/Drawer.dart';
 import 'package:userbarber/Feature/Localization/Locales.dart';
 import 'package:userbarber/core/Styles/Styles.dart';
 
-
 class ScaffoldWithNav extends StatelessWidget {
   final Widget child;
   final int selectedIndex;

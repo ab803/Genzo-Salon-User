@@ -17,7 +17,6 @@ class ServiceView extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-
     return Scaffold(
       backgroundColor: isDark
           ? AppColors.darkBackground

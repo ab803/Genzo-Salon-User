@@ -1,4 +1,3 @@
-
 import 'package:get_it/get_it.dart';
 import 'package:userbarber/Feature/Booking/repo/ServiceRepo.dart';
 import 'package:userbarber/Feature/Cart/ViewModel/order_cubit.dart';

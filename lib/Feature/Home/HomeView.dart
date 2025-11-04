@@ -20,10 +20,8 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int selectedIndex = 0;
-
-  // create cubit once and reuse
   late final ProductCubit _productCubit;
-
+  // categories
   final List<String> categoryKeys = [
     'categoryAll',
     'categoryMask',
@@ -36,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     _productCubit = ProductCubit(ProductRepository(FirestoreService()));
-    _productCubit.listenToProducts(); // start listening once
+    _productCubit.listenToProducts();
   }
 
   @override
@@ -47,73 +45,81 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color;
 
     return ScaffoldWithNav(
       selectedIndex: 0,
-      // Provide the cubit once to descendant widgets so it is not recreated every rebuild
       child: BlocProvider.value(
         value: _productCubit,
-        child: Padding(
-          padding: EdgeInsets.only(bottom: screenHeight * 0.02),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Header(),
-              SizedBox(height: screenHeight * 0.02),
+        child: LayoutBuilder(
+          // responsive design
+          builder: (context, constraints) {
+            final isLandscape =
+                MediaQuery.of(context).orientation == Orientation.landscape;
+            final screenWidth = constraints.maxWidth;
+            final textColor = Theme.of(context).textTheme.bodyLarge?.color;
+            // to be scrollable
+            return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Header
+                    const Header(),
+                    SizedBox(height: screenWidth * 0.04),
 
-              Padding(
-                padding: EdgeInsets.only(left: screenWidth * 0.04),
-                child: Text(
-                  'products'.getString(context),
-                  style: AppTextStyles.subheading(
-                    textColor ?? AppColors.primaryNavy,
-                  ).copyWith(fontSize: screenWidth * 0.05),
+                    // Products title
+                    Text(
+                      'products'.getString(context),
+                      style: AppTextStyles.subheading(
+                        textColor ?? AppColors.primaryNavy,
+                      ).copyWith(fontSize: screenWidth * 0.05),
+                    ),
+                    SizedBox(height: screenWidth * 0.03),
+
+                    // Categories scroll
+                    SizedBox(
+                      height: 50,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: categoryKeys.length,
+                        itemBuilder: (context, index) {
+                          final categoryKey = categoryKeys[index];
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.015,
+                            ),
+                            child: ProductListItem(
+                              categoryKey: categoryKey,
+                              isSelected: index == selectedIndex,
+                              onTap: () {
+                                setState(() => selectedIndex = index);
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+
+                    SizedBox(height: screenWidth * 0.04),
+
+                    // Products grid
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: 300,
+                        maxHeight: isLandscape
+                            ? constraints.maxHeight * 1.5
+                            : constraints.maxHeight * 1.2,
+                      ),
+                      child: ProductGridView(
+                        // to filter category of products
+                        selectedCategory: categoryKeys[selectedIndex],
+                      ),
+                    ),
+                  ],
                 ),
-              ),
 
-              SizedBox(height: screenHeight * 0.01),
-
-              SizedBox(
-                height: screenHeight * 0.06,
-                child: Padding(
-                  padding: EdgeInsets.only(left: screenWidth * 0.03),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: categoryKeys.length,
-                    itemBuilder: (context, index) {
-                      final categoryKey = categoryKeys[index];
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: screenWidth * 0.015,
-                        ),
-                        child: ProductListItem(
-                          categoryKey: categoryKey,
-                          isSelected: index == selectedIndex,
-                          onTap: () {
-                            setState(() {
-                              selectedIndex = index;
-                            });
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-
-              SizedBox(height: screenHeight * 0.015),
-
-              // Let the grid expand and handle its own scrolling (avoid nested scrollviews)
-              Expanded(
-                child: ProductGridView(
-                  selectedCategory: categoryKeys[selectedIndex],
-                ),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
